@@ -29,11 +29,17 @@
         form {
             margin-bottom: 20px;
         }
+
+        .glowing {
+            color: #f9f9f9;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Weather App</h1>
+        <div id="clock" class="glowing"></div>
         <form id="weatherForm">
             <label for="locationInput">Enter Location:</label>
             <input type="text" id="locationInput" name="location" required>
@@ -43,6 +49,17 @@
     </div>
 
     <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateTime, 1000);
+
         document.getElementById("weatherForm").addEventListener("submit", function(event) {
             event.preventDefault();
             const location = document.getElementById("locationInput").value;
